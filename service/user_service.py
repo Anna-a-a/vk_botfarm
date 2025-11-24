@@ -7,6 +7,8 @@ from fastapi import HTTPException
 from sqlalchemy import func
 
 from model.user import User
+from model.user_domain import UserDomain
+from model.user_env import UserEnv
 from repository.user_repository import UserRepository
 
 
@@ -20,8 +22,8 @@ class UserService:
             login="testLogin" + str(user_repository.count()),
             password=hashlib.sha256(password.encode('utf-8')).hexdigest(),
             project_id=project_id,
-            env="stage", ## todo enum (prod, predprod, stage)
-            domain="canary" ## canary, regular
+            env=UserEnv.STAGE,
+            domain=UserDomain.CANARY
         )
 
         return user_repository.create(user)

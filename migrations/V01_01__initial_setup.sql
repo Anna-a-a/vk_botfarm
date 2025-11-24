@@ -1,11 +1,14 @@
+CREATE TYPE user_domain AS ENUM ('CANARY', 'REGULAR');
+CREATE TYPE user_env AS ENUM ('PROD', 'PREPROD', 'STAGE');
+
 CREATE TABLE users (
     id UUID PRIMARY KEY,
     created_ad TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     login VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     project_id UUID NOT NULL,
-    env VARCHAR(50) NOT NULL,
-    domain VARCHAR(50) NOT NULL,
+    env user_env NOT NULL,
+    domain user_domain NOT NULL,
     locktime TIMESTAMP WITH TIME ZONE
 );
 

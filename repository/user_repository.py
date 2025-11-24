@@ -24,6 +24,7 @@ class UserRepository:
             return user
 
         except Exception as e:
+            print(f"Error getting users count: {e}")
             session.rollback()
             return None
         finally:

@@ -9,8 +9,10 @@ services:
     environment:
       - DATABASE_URL=postgresql://username:password@db:5432/vk-botfarm-db
     depends_on:
-      - migrations
-      - db
+      migrations:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
   migrations:
     build: .
     networks:
@@ -19,7 +21,8 @@ services:
       - DATABASE_URL=postgresql://username:password@db:5432/vk-botfarm-db
     command: sh -c "pyway migrate"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   db:
     image: 'postgres:latest'
     ports:
@@ -32,6 +35,12 @@ services:
       - db:/var/lib/postgresql/data
     networks:
       - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U username -d vk-botfarm-db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 volumes:
   db:
     driver: local

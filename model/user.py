@@ -1,8 +1,10 @@
 import uuid
 
-from sqlalchemy import Column, DateTime, String, UUID, text
+from sqlalchemy import Column, DateTime, String, UUID, text, Enum
 
 from database import Base
+from model.user_domain import UserDomain
+from model.user_env import UserEnv
 
 
 class User(Base):
@@ -13,8 +15,8 @@ class User(Base):
     login = Column(String(255), unique=True, index=True, nullable=False)
     password = Column(String(255), nullable=False)
     project_id = Column(UUID(as_uuid=True), nullable=False)
-    env = Column(String(50), nullable=False)
-    domain = Column(String(50), nullable=False)
+    env = Column(Enum(UserEnv), nullable=False)
+    domain = Column(Enum(UserDomain), nullable=False)
     locktime = Column(DateTime(timezone=True), nullable=True)
 
     def repr(self):
