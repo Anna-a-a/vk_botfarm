@@ -1,8 +1,8 @@
 
 from sqlalchemy import func
 
-from app.database import session
-from app.model.user import User
+from database import session
+from model.user import User
 
 
 class UserRepository:

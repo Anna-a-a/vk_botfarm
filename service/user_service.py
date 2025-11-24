@@ -6,8 +6,8 @@ from datetime import datetime, timezone
 from fastapi import HTTPException
 from sqlalchemy import func
 
-from app.model.user import User
-from app.repository.user_repository import UserRepository
+from model.user import User
+from repository.user_repository import UserRepository
 
 
 class UserService:

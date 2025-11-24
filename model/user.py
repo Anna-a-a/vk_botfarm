@@ -1,8 +1,8 @@
 import uuid
 
-from sqlalchemy import Column, DateTime, func, String, UUID, text
+from sqlalchemy import Column, DateTime, String, UUID, text
 
-from app.database import Base
+from database import Base
 
 
 class User(Base):
