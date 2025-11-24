@@ -19,14 +19,11 @@ def create():
 
 @router.put("/acquire/{user_id}")
 def acquire_lock(user_id: str):
-    # todo 1) lock update lock_time
-    raise HTTPException(
-        status_code=409,
-        detail=f"Lock for user with id:'{user_id}' is already acquired"
-    )
+    user_service = UserService()
+    user_service.lock_time(user_id)
 
 
 @router.put("/release/{user_id}")
 def release_lock(user_id: str):
-    # todo 2) (remove lock date)
-    print("her")
+    user_service = UserService()
+    user_service.release_lock(user_id)
